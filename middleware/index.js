@@ -1,9 +1,13 @@
-const User = require("../models/campground")//
+const jwt  = require(jsonwebtoken);
+const User = require("../models/")//
 //      Comment    = require("../models/comment");
 
 const middlewareObj= {};
 
 middlewareObj.isLoggedIn = function (req, res, next){
+
+  //const decode = jwt.
+
 	// passport.authenticate("jwt", { session: false }),
   // (req, res) => {
   //   res.json({
@@ -19,3 +23,4 @@ middlewareObj.isLoggedIn = function (req, res, next){
   //   req.flash("error", "You need to be logged in to do that");
   //   res.status(500).json({error:"The user is not logged in "});
 };
+module.exports = middlewareObj;

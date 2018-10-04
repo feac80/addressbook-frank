@@ -15,16 +15,22 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
     trim: true,
-    minlength: 1
-    // validate: {
-    //   isAsync: false,
-    //   //validator: validator.isEmail,
-    //   message: "{VALUE} is not a valid email"
-    // }
+    minlength: 1,
+    match: /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/
   },
   password: {
     type: String,
     required: true
+    // trim: true,
+    // minlength: 4,
+    // maxlength: 8
+
+    // 		match: /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,15}$/
+    // // 		Password must contain at least one letter, at least one number, and be longer than six charaters.
+    // // Matches
+    // // a1b2c3 | abcdefg123 | 12345a
+    // // Non-Matches
+    // // abcdefghij | 1234567890
   }
 });
 
@@ -43,3 +49,5 @@ const userSchema = mongoose.Schema({
 // 	},
 
 module.exports = mongoose.model("User", userSchema);
+
+//$2a$10$HyitYrGlMOHC.z8zACNzDu2iSPCc/erP4/h9Dknsmxm6DdOjjRLmK

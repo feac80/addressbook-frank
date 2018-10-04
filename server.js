@@ -1,15 +1,16 @@
 const express = require("express");
 const app = express();
 const usersRoute = require("./routes/api/users");
+const usersContacts = require("./routes/api/contacts");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const db = require("./config/keys").mongoURI;
+const dbmongo = require("./config/keys").mongoURI;
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
 //conecting to the db
 mongoose.connect(
-  db,
+  dbmongo,
   { useNewUrlParser: true }
 );
 
@@ -23,10 +24,11 @@ app.use(passport.initialize());
 //configuration strategy in password
 
 require("./config/passport")(passport);
-//middleware to filter route.
+//middleware to filter routes.
 app.use("/api/users", usersRoute);
+app.use("/api/contacts", usersContacts);
 
-//middleware to handle error (404)
+//middleware to handle unknown routes and send 404
 app.use((req, res, next) => {
   const error = new Error("Not found");
   error.status = 404;

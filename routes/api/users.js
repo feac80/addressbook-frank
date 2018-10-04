@@ -4,6 +4,7 @@ const User = require("../../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+const passport = require("passport");
 
 //@route: POST api/users/register
 //@CRUD:  Create
@@ -13,14 +14,18 @@ router.post("/register", (req, res) => {
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(req.body.password, salt, (err, hash) => {
       if (err) {
-        res.status(500).json(err.message);
+        res.status(500).json({
+          message: "Something went wrong",
+          errormessage: err.message
+        });
       } else {
         const newUser = new User({
           name: req.body.name,
           surname: req.body.surname,
           email: req.body.email,
-          password: hash
+          password: req.body.password
         });
+        newUser.password = hash;
         newUser
           .save()
           .then(user =>
@@ -30,7 +35,12 @@ router.post("/register", (req, res) => {
               email: user.email
             })
           )
-          .catch(err => res.status(500).json(err.message));
+          .catch(err => {
+            res.status(500).json({
+              message: "Something went wrong",
+              errormessage: err.message
+            });
+          });
       }
     });
   });
@@ -45,8 +55,9 @@ router.post("/login", (req, res) => {
   User.findOne({ email })
     .then(user => {
       if (!user) {
-        res.status(404).json({
-          error: "User does not exist"
+        console.log(user);
+        res.status(401).json({
+          error: "Auth Failed"
         });
       } else {
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -72,10 +83,33 @@ router.post("/login", (req, res) => {
     })
     .catch(err => {
       res.status(500).json({
-        error: "Something went wrong",
+        message: "Something went wrong",
         errormessage: err.message
       });
     });
 });
+
+//@route: DELETE api/users/:userId
+//@CRUD:  Delete
+//@Access private
+//@Desc:  Delete user by ID
+router.delete(
+  "/:userId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.deleteOne({ _id: req.params.userId })
+      .then(result => {
+        res.status(200).json({
+          message: "User deleted"
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          message: "Something went wrong",
+          errormessage: err.message
+        });
+      });
+  }
+);
 
 module.exports = router;
