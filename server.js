@@ -1,29 +1,21 @@
 const express = require("express");
 const app = express();
+const dotenv = require("dotenv");
+dotenv.config();
 const usersRoute = require("./routes/api/users");
 const usersContacts = require("./routes/api/contacts");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
-const dbmongo = require("./config/keys").mongoURI;
+const mongodb = require("./config/mongodb");
 const bodyParser = require("body-parser");
-//const passport = require("passport");
 
-//conecting to the db
-mongoose.connect(
-  dbmongo,
-  { useNewUrlParser: true }
-);
+//conecting to the mongo database
+mongodb();
 
-//middleware to log the request in console.
+//middleware to log the http request in console and parse the income request.
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//passport middleware
-//app.use(passport.initialize());
-//configuration strategy in password
-
-//require("./config/passport")(passport);
 //middleware to filter routes.
 app.use("/api/users", usersRoute);
 app.use("/api/contacts", usersContacts);
@@ -34,7 +26,7 @@ app.use((req, res, next) => {
   error.status = 404;
   next(error);
 });
-
+//middleware to handle errors and send status 500
 app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({

@@ -1,12 +1,11 @@
 const jwt = require("jsonwebtoken");
-const key = require("../config/keys").secretOrKey;
 
 module.exports = (req, res, next) => {
   const rawToken = req.headers.authorization;
   const TokenArray = rawToken.split(" ");
   const token = TokenArray[1];
-
-  jwt.verify(token, key, (err, decoded) => {
+  //verifying the token
+  jwt.verify(token, process.env.SERCRET_OR_KEY, (err, decoded) => {
     if (!err) {
       req.userData = decoded;
       next();

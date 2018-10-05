@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const firebase = require("../../config/firebase");
-const passport = require("passport");
 const isLoggedIn = require("../../middleware/isLoggedIn");
-//const jwt = require("jsonwebtoken");
-
-//const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 // Get a database reference to our AddressBook
 // var db = admin.database();
 // var ref = db.ref("server/saving-data/serverbook");
 
 router.post(
-  "/new",
+  "/",
   isLoggedIn,
 
   (req, res) => {
@@ -21,7 +17,6 @@ router.post(
     //const token = req.header.authorization;
     // const uid = decodedToken.id;
     const uid = req.userData.id;
-    console.log("here" + uid);
     const ref = firebase
       .database()
       .ref()

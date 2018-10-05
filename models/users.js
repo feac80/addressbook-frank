@@ -3,12 +3,7 @@ const mongoose = require("mongoose");
 mongoose.set("useCreateIndex", true); // avoid DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
 const userSchema = mongoose.Schema({
   name: {
-    type: String,
-    required: true
-  },
-  surname: {
-    type: String,
-    required: true
+    type: String
   },
   email: {
     type: String,
@@ -31,7 +26,8 @@ const userSchema = mongoose.Schema({
     // // a1b2c3 | abcdefg123 | 12345a
     // // Non-Matches
     // // abcdefghij | 1234567890
-  }
+  },
+  createdDate: { type: Date, default: Date.now }
 });
 
 // var userSchema = new mongoose.Schema({
@@ -49,5 +45,3 @@ const userSchema = mongoose.Schema({
 // 	},
 
 module.exports = mongoose.model("User", userSchema);
-
-//$2a$10$HyitYrGlMOHC.z8zACNzDu2iSPCc/erP4/h9Dknsmxm6DdOjjRLmK

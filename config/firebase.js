@@ -13,4 +13,4 @@ dbfirebase.settings({ timestampsInSnapshots: true });
 module.exports = admin.app();
 //!admin.apps.length ? admin.initializeApp(config) :
 //const  = dbf.ref("users");
-const message = { title: "hello there", timestamp: new Date().toString() };
+//const message = { title: "hello there", timestamp: new Date().toString() };
