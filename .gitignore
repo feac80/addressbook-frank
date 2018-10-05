@@ -1,3 +1,9 @@
+#packages depencies
 /node_modules
 .package-lock.json
+
+#Service google account
 .serviceAccountKey.json
+
+#keys values
+/config/keys
