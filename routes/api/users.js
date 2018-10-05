@@ -4,7 +4,7 @@ const User = require("../../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-const passport = require("passport");
+//const passport = require("passport");
 
 //@route: POST api/users/register
 //@CRUD:  Create
@@ -88,28 +88,5 @@ router.post("/login", (req, res) => {
       });
     });
 });
-
-//@route: DELETE api/users/:userId
-//@CRUD:  Delete
-//@Access private
-//@Desc:  Delete user by ID
-router.delete(
-  "/:userId",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    User.deleteOne({ _id: req.params.userId })
-      .then(result => {
-        res.status(200).json({
-          message: "User deleted"
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          message: "Something went wrong",
-          errormessage: err.message
-        });
-      });
-  }
-);
 
 module.exports = router;

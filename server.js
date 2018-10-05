@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const dbmongo = require("./config/keys").mongoURI;
 const bodyParser = require("body-parser");
-const passport = require("passport");
+//const passport = require("passport");
 
 //conecting to the db
 mongoose.connect(
@@ -20,10 +20,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //passport middleware
-app.use(passport.initialize());
+//app.use(passport.initialize());
 //configuration strategy in password
 
-require("./config/passport")(passport);
+//require("./config/passport")(passport);
 //middleware to filter routes.
 app.use("/api/users", usersRoute);
 app.use("/api/contacts", usersContacts);
