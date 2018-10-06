@@ -14,12 +14,7 @@ describe("Checking User", function() {
     api
       .post("/api/users/register")
       .set("Accept", "application/json")
-      .send({
-        name: "Frank Eduardo",
-        surname: "Araque Cadenas",
-        email: "feac91@hotmail.com",
-        password: "password"
-      })
+      .send(userData)
       .expect(201, done);
     // .end(function(err, res) {
     //   expect(res.body.name).to.equal("Frank Eduardo");

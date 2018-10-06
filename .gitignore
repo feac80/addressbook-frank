@@ -6,7 +6,8 @@ node_modules
 .package-lock.json
 
 #Service google account
-serviceAccountKey.json
+.serviceAccountKey.json
 
-#keys values
-config/.keys.js
+#Service google account
+.serviceAccountKey.json
+

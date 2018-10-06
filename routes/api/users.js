@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 
 //@route: POST api/users/register
 //@CRUD:  Create
@@ -87,4 +88,39 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.post("/test", (req, res) => {
+  const passwordValidator = require("password-validator");
+
+  // Create a schema
+  var schema = new passwordValidator();
+
+  // Add properties to it
+  schema
+    .is()
+    .min(6) // Minimum length 6
+    .is()
+    .max(25) // Maximum length 25
+    .has()
+    .uppercase(1) // Must have uppercase letters
+    .has()
+    .lowercase(1) // Must have lowercase letters
+    .has()
+    .digits(1) // Must have digits
+    .has()
+    .not()
+    .spaces() // Should not have spaces
+    .is()
+    .not()
+    .oneOf(["Passw0rd", "Password123"]); // Blacklist these values
+
+  if (schema.validate(req.body.password, { list: true })) {
+    res.status(202).json({
+      message: "Password ok"
+    });
+  } else {
+    res.status(500).json({
+      message: "Password is not correct"
+    });
+  }
+});
 module.exports = router;

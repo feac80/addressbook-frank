@@ -64,4 +64,13 @@ server.post("/api/user") {
           });
     });
 
-});
+## });
+
+Enforce 'strong' passwords
+If you're concerned about security you should have some policy on what constitutes a valid password. Some common restrictions are:
+
+at least n characters
+combination of upper- and lower-case characters
+one or more digits
+not related to other user data (name, address, username, ...)
+not a dictionary word
