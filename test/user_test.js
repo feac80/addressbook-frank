@@ -1,12 +1,9 @@
+const connection = require("./connection");
 const should = require("chai").should();
 const expect = require("chai").expect,
   supertest = require("supertest"),
   api = supertest("http://localhost:3000");
 
-console.log(process.env.NODE_ENV);
-console.log(process.env.MONGOURI_DEV);
-console.log(process.env.NODE_ENV == "test");
-console.log(process.env.MONGOURI_TEST);
 // Validate when the email is not present
 // Validate when the email is empty.(behavior:user is created)
 // validate when missing fields

@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
+
 const usersRoute = require("./routes/api/users");
 const usersContacts = require("./routes/api/contacts");
 const morgan = require("morgan");
@@ -9,7 +10,7 @@ const mongodb = require("./config/mongodb");
 const bodyParser = require("body-parser");
 
 //conecting to the mongo database
-mongodb();
+//mongodb(); //check this out
 
 //middleware to log the http request in console and parse the income request.
 app.use(morgan("dev"));

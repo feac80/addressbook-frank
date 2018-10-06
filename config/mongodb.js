@@ -1,28 +1,14 @@
 const mongoose = require("mongoose");
-const dbmongo = require("./keys").mongoURI;
+//let config = require("config");
 
-console.log(process.env.NODE_ENV);
-console.log(process.env.MONGOURI_DEV);
-console.log(process.env.NODE_ENV == "test");
-console.log(process.env.MONGOURI_TEST);
-
-let currentdb = "";
-
-if (process.env.NODE_ENV === "test") {
-  currentdb = process.env.MONGOURI_TEST;
-} else {
-  currentdb = process.env.MONGOURI_DEV;
-}
-
-console.log(currentdb);
-module.exports = () => {
-  mongoose
-    .connect(
-      currentdb,
-      { useNewUrlParser: true }
-    )
-    .then(() => {
-      console.log("DB connected");
-    })
-    .catch(err => console.log(err));
-};
+mongoose
+  .connect(
+    process.env.NODE_ENV.trim() === "test"
+      ? process.env.MONGOURI_TEST
+      : process.env.MONGOURI_DEV,
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log(`Connected to ${process.env.NODE_ENV}database`);
+  })
+  .catch(err => console.log(err));

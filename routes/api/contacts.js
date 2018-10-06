@@ -3,10 +3,6 @@ const router = express.Router();
 const firebase = require("../../config/firebase");
 const isLoggedIn = require("../../middleware/isLoggedIn");
 
-// Get a database reference to our AddressBook
-// var db = admin.database();
-// var ref = db.ref("server/saving-data/serverbook");
-
 router.post(
   "/",
   isLoggedIn,
