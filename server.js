@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const dotenv = require("dotenv");
-dotenv.config();
+//const dotenv = require("dotenv");
+//dotenv.config();
 
 const usersRoute = require("./routes/api/users");
 const usersContacts = require("./routes/api/contacts");
