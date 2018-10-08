@@ -1,5 +1,6 @@
 const connection = require("./cleanUp");
 const should = require("chai").should();
+const User = require("../models/users");
 const expect = require("chai").expect,
   supertest = require("supertest"),
   api = supertest("http://localhost:3000");
@@ -10,6 +11,10 @@ const expect = require("chai").expect,
 
 //@POST "/api/users/register"
 describe("Checking User", function() {
+  this.beforeAll(async () => {
+    await User.remove({});
+  });
+
   it("should register a new User", function(done) {
     api
       .post("/api/users/register")
