@@ -1,4 +1,4 @@
-const connection = require("./connection");
+const connection = require("./cleanUp");
 const should = require("chai").should();
 const expect = require("chai").expect,
   supertest = require("supertest"),
@@ -14,43 +14,48 @@ describe("Checking User", function() {
     api
       .post("/api/users/register")
       .set("Accept", "application/json")
-      .send(userData)
-      .expect(201, done);
-    // .end(function(err, res) {
-    //   expect(res.body.name).to.equal("Frank Eduardo");
-    //   expect(res.body.surname).to.equal("Araque Cadenas");
-    //   expect(res.body.email).to.equal("feac89@hotmail.com");
-    //   expect(res.body.password).to.equal("13267095");
-    //   done();
-    // });
+      .send({
+        name: "Jose Maria",
+        email: "jmaria2@hotmail.com",
+        password: "1234567Tt@1"
+      })
+      .expect(201)
+      .end(function(err, res) {
+        expect(res.body.name).to.equal("Jose Maria");
+        expect(res.body.email).to.equal("jmaria2@hotmail.com");
+        expect(res.body.date).to.not.equal(null);
+        console.log(err);
+        done();
+      });
+  });
+
+  //@CRUD POST "/api/users/login"
+  it("should login an User", function(done) {
+    api
+      .post("/api/users/login")
+      .set("Accept", "application/json")
+      .send({
+        email: "jmaria2@hotmail.com",
+        password: "1234567Tt@1"
+      })
+      .expect(200)
+      .end(function(err, res) {
+        expect(res.body.error).to.equal(null);
+        expect(res.body.token).to.not.equal(null);
+        done();
+      });
+  });
+  // @CRUD POST "/api/contacts/"
+
+  it("should create a new Contact", function(done) {
+    api
+      .post("/api/contacts/")
+      .set("Accept", "application/json")
+      .send()
+      .expect(200);
+    done();
   });
 });
-//@CRUD POST "/api/users/login"
-// it("should login an User", function(done) {
-//   api
-//     .post("/api/users/login")
-//     .set("Accept", "application/json")
-//     .send({
-//       email: "feac87@hotmail.com",
-//       password: "password"
-//     })
-//     .expect(200)
-//     .end(function(err, res) {
-//       expect(res.body.error).to.equal(null);
-//       expect(res.body.token).to.not.equal(null);
-
-//       done();
-//     });
-// });
-
-// describe("User", function() {
-//   it("should create a new user", function(done) {
-//     api
-//       .get("/api/users/")
-//       .set("Accept", "application/json")
-//       .expect(200);
-//     done();
-//   });
 
 //   it("should return a 200 response for existing user", function(done) {
 //     api

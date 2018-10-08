@@ -8,6 +8,6 @@ node_modules
 #Service google account
 .serviceAccountKey.json
 
-#Service google account
-.serviceAccountKey.json
+#Service google account in test
+.serviceAccountKeyTest.json
 

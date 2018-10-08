@@ -8,15 +8,23 @@ const usersContacts = require("./routes/api/contacts");
 const morgan = require("morgan");
 const mongodb = require("./config/mongodb");
 const bodyParser = require("body-parser");
-
-//conecting to the mongo database
-//mongodb(); //check this out
+var validator = require("express-validator");
 
 //middleware to log the http request in console and parse the income request.
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(validator());
+//prevent CORS issues with web clients
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
 //middleware to filter routes.
 app.use("/api/users", usersRoute);
 app.use("/api/contacts", usersContacts);
