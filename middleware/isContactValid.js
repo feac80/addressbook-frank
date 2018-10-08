@@ -3,15 +3,13 @@ const Joi = require("joi");
 //name is required
 module.exports = (req, res, next) => {
   const uid = req.userData.id;
-  let surname = req.body.surname || "";
-  let phone = req.body.phone || "";
-  console.log(surname);
+
   contactData = {
     name: req.body.name,
-    surname: surname,
+    surname: req.body.surname,
     email: req.body.email,
     user_id: uid,
-    phone: phone,
+    phone: req.body.phone,
     address: req.body.address
   };
 

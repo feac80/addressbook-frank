@@ -9,6 +9,6 @@ mongoose
     { useNewUrlParser: true }
   )
   .then(() => {
-    console.log(`Connected to ${process.env.NODE_ENV}database`);
+    console.log(`Connected to ${process.env.NODE_ENV} database`);
   })
   .catch(err => console.log(err));
