@@ -1,0 +1,35 @@
+{
+  "name": "addressbook-frank",
+  "scripts": {
+  },
+  "env": {
+    "FIREBASE_DEV": {
+      "required": true
+    },
+    "FIREBASE_TEST": {
+      "required": true
+    },
+    "MONGOURI_DEV": {
+      "required": true
+    },
+    "MONGOURI_TEST": {
+      "required": true
+    },
+    "SERCRET_OR_KEY": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
