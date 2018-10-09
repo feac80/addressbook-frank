@@ -11,25 +11,18 @@ router.post(
   isContactValid,
 
   (req, res) => {
-    // const userEmail = req.body.user_email;
-    // check header or url parameters or post parameters for token
-    //const token = req.header.authorization;
-    // const uid = decodedToken.id;
-
-    //contactData
-    // const ref = firebase
-    //   .database()
-    //   .ref()
-    //   .child("usersuid/" + uid);
-
-    firebase
+    const newContact = firebase
       .database()
       .ref()
       .push(req.contactData, err => {
         if (!err) {
           res.status(201).json({
             message: "Success: Created Contact.",
-            result: true
+            name: req.contactData.name,
+            surname: req.contactData.surname,
+            phone: req.contactData.phone,
+            address: req.contactData.address,
+            email: req.contactData.address
           });
         } else {
           res.status(500).json({
@@ -37,6 +30,9 @@ router.post(
             errormessage: err.mesage
           });
         }
+        //const postId = newContact.key;
+        // console.log(postId);
+        // console.log(req.contactData.user_id);
       });
   }
 );

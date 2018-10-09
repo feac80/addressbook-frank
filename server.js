@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-//const dotenv = require("dotenv");
-//dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 const usersRoute = require("./routes/api/users");
 const usersContacts = require("./routes/api/contacts");
@@ -26,8 +26,8 @@ app.use((req, res, next) => {
   next();
 });
 //middleware to filter routes.
-app.use("/api/users", usersRoute);
-app.use("/api/contacts", usersContacts);
+app.use("/api/v1/users", usersRoute);
+app.use("/api/v1/contacts", usersContacts);
 
 //middleware to handle unknown routes and send 404
 app.use((req, res, next) => {

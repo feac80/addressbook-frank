@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
       req.userData = decoded;
       next();
     } else {
-      res.status(500).json({
+      res.status(401).json({
         message: "Something went wrong",
         errormessage: err.message
       });

@@ -15,22 +15,26 @@ module.exports = (req, res, next) => {
 
   const contactValidateSchema = Joi.object().keys({
     name: Joi.string()
-      .alphanum()
-      .min(3)
       .max(30)
       .required(),
-    surname: Joi.string(),
-    user_id: Joi.string(),
-    phone: Joi.string(),
-    email: Joi.string().email({ minDomainAtoms: 2 }),
+    surname: Joi.string()
+      .max(30)
+      .required(),
+    user_id: Joi.string().required(),
+    phone: Joi.string()
+      .max(30)
+      .required(),
+    email: Joi.string()
+      .email({ minDomainAtoms: 2 })
+      .required(),
     address: Joi.string()
+      .max(30)
+      .required()
   });
 
   Joi.validate(contactData, contactValidateSchema, (err, value) => {
     if (!err) {
       req.contactData = contactData;
-      console.log(value);
-      console.log(contactData);
       next();
     } else {
       res.status(422).json({

@@ -12,15 +12,6 @@ module.exports = (req, res, next) => {
         .required()
     })
     .with("email", "password");
-  // It expects at least
-  // 1 special character !#$@%&?
-  // 1 letter,
-  // 1 digit,
-  //the length should be between 6-15 characters. The sequence of the characters is not important.
-  // Matches
-  // 1234567Tt#
-  // Non-Matches
-  // Tt122 | 1tdfy34564646T*
 
   Joi.validate(req.body, userValidateSchema, (err, value) => {
     if (!err) {
